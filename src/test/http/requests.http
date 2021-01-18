@@ -1,0 +1,76 @@
+
+###
+
+POST http://localhost:8080/api/profile
+Content-Type: application/json
+
+{
+  "username": "test25",
+  "firstName": "test3",
+  "surname": "test2",
+  "password": "test3"
+}
+
+
+###
+
+POST http://localhost:8080/api/login
+Content-Type: application/json
+
+{
+  "login": "test5",
+  "password": "test3"
+}
+
+###
+
+GET http://localhost:8080/api/profiles
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjExMjk2MDk3fQ.q52vz1l-lCBA5_h9oCb0PdtK8fpuUm1GNNq9wt_fIZ06mgFQ2DbBExxCOmZilDqw51X0cv377mhYFh2WnRH0Nw
+
+
+###
+
+GET http://localhost:8080/api/profile
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjExMjk2MDk3fQ.q52vz1l-lCBA5_h9oCb0PdtK8fpuUm1GNNq9wt_fIZ06mgFQ2DbBExxCOmZilDqw51X0cv377mhYFh2WnRH0Nw
+
+###
+
+PUT http://localhost:8080/api/profile
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjExMjk2MDk3fQ.q52vz1l-lCBA5_h9oCb0PdtK8fpuUm1GNNq9wt_fIZ06mgFQ2DbBExxCOmZilDqw51X0cv377mhYFh2WnRH0Nw
+Content-Type: application/json
+
+{
+  "firstName": "test2",
+  "surname": "test4",
+  "city": "default",
+  "birthDate": "2012-01-02",
+  "gender": "M",
+  "interests": "test test"
+}
+
+
+###
+
+GET http://localhost:8080/api/friend/1
+
+###
+
+GET http://localhost:8080/api/friend
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjExMjk2MDk3fQ.q52vz1l-lCBA5_h9oCb0PdtK8fpuUm1GNNq9wt_fIZ06mgFQ2DbBExxCOmZilDqw51X0cv377mhYFh2WnRH0Nw
+
+
+###
+
+POST http://localhost:8080/api/friend
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjExMjk2MDk3fQ.q52vz1l-lCBA5_h9oCb0PdtK8fpuUm1GNNq9wt_fIZ06mgFQ2DbBExxCOmZilDqw51X0cv377mhYFh2WnRH0Nw
+Content-Type: application/json
+
+{
+  "friendId": 3
+}
+
+###
+
+DELETE http://localhost:8080/api/friend/2
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjExMjk2MDk3fQ.q52vz1l-lCBA5_h9oCb0PdtK8fpuUm1GNNq9wt_fIZ06mgFQ2DbBExxCOmZilDqw51X0cv377mhYFh2WnRH0Nw

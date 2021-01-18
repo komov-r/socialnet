@@ -1,0 +1,74 @@
+<h2>Sign up</h2>
+
+
+<form [formGroup]="regForm" (ngSubmit)="onSubmit()" class="form">
+
+  <div>
+    <mat-form-field>
+      <mat-label>Login</mat-label>
+      <input matInput formControlName="username" autocomplete="false">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <mat-label>First Name</mat-label>
+      <input matInput type="text" formControlName="firstName" autocomplete="false">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input matInput type="text" formControlName="surname" autocomplete="false">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <mat-label>Gender</mat-label>
+      <mat-select formControlName="gender">
+        <mat-option>None</mat-option>
+        <mat-option value="M">Man</mat-option>
+        <mat-option value="W">Woman</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <mat-label>Birth Date</mat-label>
+      <input matInput type="date" formControlName="birthDate">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <mat-label>City</mat-label>
+      <input matInput type="text" formControlName="city" autocomplete="false">
+    </mat-form-field>
+
+  </div>
+
+  <div>
+    <mat-form-field>
+      <mat-label>Interests</mat-label>
+      <input matInput type="text" formControlName="interests" autocomplete="false">
+    </mat-form-field>
+  </div>
+
+  <div style="text-align: center">
+    <button mat-flat-button color="primary" [disabled]="loading">
+      Sign up
+    </button>
+    <button mat-button color="primary" (click)="gotToLogin()" >
+      login
+    </button>
+  </div>
+</form>

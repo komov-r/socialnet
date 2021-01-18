@@ -1,0 +1,19 @@
+.profile div {
+  display: table-row;
+  table-layout: initial;
+}
+
+.profile label {
+  color: grey;
+
+  display: table-cell;
+  text-align: right;
+
+  padding-bottom: 15px;
+}
+
+.profile span {
+
+  display: table-cell;
+  padding-left: 10px;
+}

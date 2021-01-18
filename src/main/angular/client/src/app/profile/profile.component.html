@@ -1,0 +1,29 @@
+<app-menu></app-menu>
+
+<h2>Your profile</h2>
+<div *ngIf="(currentProfile | async) as cp" class="profile">
+  <div><label>Name</label> <span>{{cp.firstName}} {{cp.surname}}</span></div>
+  <div><label>City</label> <span>{{cp.city}}</span></div>
+  <div><label>Gender</label> <span>{{cp.gender}}</span></div>
+  <div><label>Birth Date</label> <span>{{cp.birthDate}}</span></div>
+  <div><label>Interests</label> <span>{{cp.interests}}</span></div>
+</div>
+
+<br/>
+<br/>
+
+<h2>Your friends</h2>
+<table>
+  <tr *ngFor="let friend of (friends | async)?.friends">
+    <td>
+      <div style="display:inline-block;width: 100px">{{friend.firstName}} {{friend.lastName}}</div>
+    </td>
+    <td>
+      <button mat-button color="warn"
+              (click)="removeFriend(friend)">
+        remove
+      </button>
+    </td>
+  </tr>
+</table>
+

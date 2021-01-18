@@ -1,0 +1,47 @@
+spring:
+  datasource:
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
+
+  web:
+    resources:
+      cache:
+        cachecontrol:
+          cache-private: true
+          max-age: 604800
+
+
+server:
+  compression:
+    enabled: true
+
+
+jwt:
+  secret: ${JWT_SECRET:test}
+  expireMins: 9999
+
+logging:
+  level:
+    com.example: "debug"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+
+bucket4j:
+  enabled: true
+  filters:
+    - url: \/api\/.*
+      rate-limits:
+        - bandwidths:
+            - capacity: 1000
+              time: 1
+              unit: hours

@@ -1,0 +1,34 @@
+<app-menu></app-menu>
+
+<h2>Profiles</h2>
+
+<table>
+  <thead>
+  <th>Name</th>
+  <th>Gender</th>
+  <th>BirthDate</th>
+  <th>City</th>
+  <th>Interests</th>
+  <th></th>
+  </thead>
+  <tbody>
+  <tr *ngFor="let profile of (profiles | async )?.users">
+    <td>{{profile.firstName}} {{profile.surname}}</td>
+    <td>{{profile.gender}}</td>
+    <td>{{profile.birthDate}}</td>
+    <td>{{profile.city}}</td>
+    <td>{{profile.interests}}</td>
+    <td>
+      <div style="float: right">
+        <button mat-button color="primary"
+                (click)="addFriend(profile.id)"
+                *ngIf="!isFriend(profile) && !isMe(profile)"
+        >
+          Add
+        </button>
+        <span *ngIf="isFriend(profile)">Added</span>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
