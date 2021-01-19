@@ -52,7 +52,7 @@ public class ProfileService {
     private UserProfile regRequestToUserProfile(RegisterRequest registerRequest) {
         UserProfile userProfile = new UserProfile();
 
-        userProfile.setUsername(registerRequest.getUsername());
+        userProfile.setUsername(registerRequest.getUsername().toLowerCase());
         userProfile.setFirstName(registerRequest.getFirstName());
         userProfile.setSurname(registerRequest.getSurname());
         userProfile.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
