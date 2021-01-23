@@ -19,8 +19,11 @@ spring:
 server:
   compression:
     enabled: true
-
-
+  undertow:
+    no-request-timeout: 10s
+    options:
+      server:
+        IDLE_TIMEOUT: 10
 jwt:
   secret: ${JWT_SECRET:test}
   expireMins: 9999
@@ -33,8 +36,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
-
+        include: 'httptrace, *'
 
 bucket4j:
   enabled: true

@@ -5,10 +5,10 @@ POST http://localhost:8080/api/profile
 Content-Type: application/json
 
 {
-  "username": "test25",
-  "firstName": "test3",
-  "surname": "test2",
-  "password": "test3"
+  "username": "tesT32",
+  "firstName": "test32",
+  "surname": "test32",
+  "password": "Test32"
 }
 
 
@@ -18,21 +18,21 @@ POST http://localhost:8080/api/login
 Content-Type: application/json
 
 {
-  "login": "test5",
-  "password": "test3"
+  "login": "tesT32",
+  "password": "Test32"
 }
 
 ###
 
-GET http://localhost:8080/api/profiles
+GET http://127.0.0.1:8080/api/profiles
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjExMjk2MDk3fQ.q52vz1l-lCBA5_h9oCb0PdtK8fpuUm1GNNq9wt_fIZ06mgFQ2DbBExxCOmZilDqw51X0cv377mhYFh2WnRH0Nw
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjExOTM1MzcyfQ.QEcHqN_spaPOS_cOWLTM63aFp0CCAbmSQNdmOymf3WWZ98BoLbcj_ucM7wBWtUTcfbBF_0EVDlbTVPOx7kHz4w
 
 
 ###
 
 GET http://localhost:8080/api/profile
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjExMjk2MDk3fQ.q52vz1l-lCBA5_h9oCb0PdtK8fpuUm1GNNq9wt_fIZ06mgFQ2DbBExxCOmZilDqw51X0cv377mhYFh2WnRH0Nw
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjExOTM1MzcyfQ.QEcHqN_spaPOS_cOWLTM63aFp0CCAbmSQNdmOymf3WWZ98BoLbcj_ucM7wBWtUTcfbBF_0EVDlbTVPOx7kHz4w
 
 ###
 

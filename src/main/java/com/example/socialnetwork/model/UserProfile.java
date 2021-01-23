@@ -32,6 +32,17 @@ public class UserProfile extends BaseEntity {
     public UserProfile() {
     }
 
+    public UserProfile(String username, String password, String firstName, String surname, String city, LocalDate birthDate, Gender gender, String interests) {
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.surname = surname;
+        this.city = city;
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.interests = interests;
+    }
+
     public UserProfile(Long id,
                        String username,
                        String password,
