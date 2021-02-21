@@ -1,0 +1,23 @@
+
+db-mapping:
+  datasources:
+    - name: master
+      url: jdbc:mysql://mysql-storage:3306/socialnet
+      username: root
+      password: password
+      driverClassName: com.mysql.jdbc.Driver
+
+    - name: slave1
+      url: jdbc:mysql://mysql-storage-1:3306/socialnet
+      username: root
+      password: password
+      driverClassName: com.mysql.jdbc.Driver
+
+    - name: slave2
+      url: jdbc:mysql://mysql-storage-2:3306/socialnet
+      username: root
+      password: password
+
+  master: slave1
+  profiles: slave1
+  friends: slave2

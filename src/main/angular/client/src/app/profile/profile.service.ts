@@ -18,6 +18,11 @@ export class ProfileService {
     return this.http.get<UserProfilesList>(`${this.baseUrl}/api/profiles`);
   }
 
+  findProfiles(req: ProfilesRequest) {
+
+    return this.http.get<UserProfilesList>(`${this.baseUrl}/api/profiles`, {params: {firstName:req.firstName, surname:req.surname}});
+  }
+
 }
 
 export class UserProfilesList {
@@ -32,4 +37,11 @@ export class UserProfile {
   gender: string;
   birthDate: string;
   interests: string;
+}
+
+export class ProfilesRequest {
+  firstName: string="";
+  surname: string="";
+
+
 }

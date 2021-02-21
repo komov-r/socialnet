@@ -1,5 +1,4 @@
 spring:
-  datasource:
-    url: jdbc:h2:file:/tmp/sample2;MODE=MYSQL
-    username:
-    password:
+  config:
+    import: file:/media/roman/projects/otus/hl/social-network/src/main/docker/datasources-h2.yml
+

@@ -4,11 +4,13 @@ import com.example.socialnetwork.controller.api.GetUserProfileRequest;
 import com.example.socialnetwork.controller.api.UpdateProfileRequest;
 import com.example.socialnetwork.model.Gender;
 import com.example.socialnetwork.model.UserProfile;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,8 +32,13 @@ public class UserProfileRepository {
 
     private JdbcTemplate jdbcTemplate;
 
-    public UserProfileRepository(JdbcTemplate jdbcTemplate) {
+    private JdbcTemplate jdbcTemplateProfiles;
+
+
+    public UserProfileRepository(JdbcTemplate jdbcTemplate,
+                                 @Qualifier("profilesDs") DataSource profilesDs) {
         this.jdbcTemplate = jdbcTemplate;
+        this.jdbcTemplateProfiles = new JdbcTemplate(profilesDs);
     }
 
     public UserProfile insert(UserProfile userProfile) {
@@ -150,7 +157,7 @@ public class UserProfileRepository {
 
         sql += " order by id desc limit 100";
 
-        return jdbcTemplate.query(
+        return jdbcTemplateProfiles.query(
                 sql,
                 params.toArray(),
                 this::userProfileMapper

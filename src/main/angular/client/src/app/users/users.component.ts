@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ProfileService, UserProfile, UserProfilesList} from "../profile/profile.service";
+import {ProfileService, ProfilesRequest, UserProfile, UserProfilesList} from "../profile/profile.service";
 import {FriendList, FriendService} from "../profile/friend.service";
 import {BehaviorSubject, Observable} from "rxjs";
 import {filter} from "rxjs/operators";
@@ -12,6 +12,9 @@ import {LoginService} from "../login/login.service";
 export class UsersComponent implements OnInit {
   profiles: Observable<UserProfilesList>
   friendSet: Set<number> = new Set<number>();
+
+  filter: ProfilesRequest = new ProfilesRequest();
+
 
   constructor(private profileService: ProfileService, private friendService: FriendService, private loginService: LoginService) {
   }
@@ -39,5 +42,9 @@ export class UsersComponent implements OnInit {
     return this.loginService.currentUserValue.id == user.id;
   }
 
+  public reload(): void {
+    console.log(this.filter.firstName)
+    this.profiles = this.profileService.findProfiles(this.filter);
+  }
 
 }

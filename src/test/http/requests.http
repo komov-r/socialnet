@@ -5,10 +5,10 @@ POST http://localhost:8080/api/profile
 Content-Type: application/json
 
 {
-  "username": "tesT32",
-  "firstName": "test32",
-  "surname": "test32",
-  "password": "Test32"
+  "username": "test99999999999997777775",
+  "firstName": "test99999999999997777775",
+  "surname": "test99999999999997777775",
+  "password": "test99999999999997777775"
 }
 
 
@@ -18,21 +18,21 @@ POST http://localhost:8080/api/login
 Content-Type: application/json
 
 {
-  "login": "tesT32",
-  "password": "Test32"
+  "login": "test777771239",
+  "password": "test777771293"
 }
 
 ###
 
-GET http://127.0.0.1:8080/api/profiles
+GET http://127.0.0.1:8080/api/profiles?firstName=test777771239
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjExOTM1MzcyfQ.QEcHqN_spaPOS_cOWLTM63aFp0CCAbmSQNdmOymf3WWZ98BoLbcj_ucM7wBWtUTcfbBF_0EVDlbTVPOx7kHz4w
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjE0NDY0Njg1fQ.rSaaZp-j3311Onu1Ua6XKvFzHkTRh6OQ4dFZL7Yiw4oO0pfgbMlZd6Obl_MtWF62PFYNwgjhCCRX7TlzjXGbuw
 
 
 ###
 
 GET http://localhost:8080/api/profile
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjExOTM1MzcyfQ.QEcHqN_spaPOS_cOWLTM63aFp0CCAbmSQNdmOymf3WWZ98BoLbcj_ucM7wBWtUTcfbBF_0EVDlbTVPOx7kHz4w
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDA1OTY4OTQiLCJleHAiOjE2MTM4NTMwMzV9.DHERq1ks7mxkjzxajsVOAaaXBs2tjmKTxJrVUbvfua1ZkzVcPmqmzqfbxt6MxeS3Oh6-mWYl5AXbbHwW5c6cNw
 
 ###
 
@@ -74,3 +74,13 @@ Content-Type: application/json
 
 DELETE http://localhost:8080/api/friend/2
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjExMjk2MDk3fQ.q52vz1l-lCBA5_h9oCb0PdtK8fpuUm1GNNq9wt_fIZ06mgFQ2DbBExxCOmZilDqw51X0cv377mhYFh2WnRH0Nw
+
+
+###
+
+POST http://localhost:8080/actuator/refresh/
+
+###
+POST http://localhost:8080/refresh?name=db-mapping.profiles
+###
+POST http://localhost:8080/refresh?name=profilesDs

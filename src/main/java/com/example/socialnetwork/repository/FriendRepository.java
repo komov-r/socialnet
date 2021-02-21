@@ -2,10 +2,12 @@ package com.example.socialnetwork.repository;
 
 import com.example.socialnetwork.controller.api.FriendInfo;
 import com.example.socialnetwork.model.Friend;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -21,14 +23,17 @@ import java.util.stream.Stream;
 public class FriendRepository {
 
     private JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate1;
 
-    public FriendRepository(JdbcTemplate jdbcTemplate) {
+    public FriendRepository(JdbcTemplate jdbcTemplate,
+                            @Qualifier("friendsDs") DataSource friendsDs) {
         this.jdbcTemplate = jdbcTemplate;
+        this.jdbcTemplate1 = new JdbcTemplate(friendsDs);
     }
 
 
     public List<FriendInfo> getFriendsByUserId(Long userId) {
-        try (Stream<FriendInfo> friendInfoStream = jdbcTemplate.queryForStream(
+        try (Stream<FriendInfo> friendInfoStream = jdbcTemplate1.queryForStream(
                 "SELECT f.userId, f.friendId, p.firstName, p.surname FROM Friend f inner join UserProfile p on f.friendId = p.id WHERE f.userId = ?",
                 this::friendInfoMapper
                 , userId)) {

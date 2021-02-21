@@ -1,5 +1,6 @@
 package com.example.socialnetwork;
 
+import com.example.socialnetwork.config.DsMappingConfig;
 import com.example.socialnetwork.model.Gender;
 import com.example.socialnetwork.model.UserProfile;
 import com.example.socialnetwork.repository.UserProfileRepository;
@@ -10,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +29,7 @@ import java.util.stream.IntStream;
 
 @SpringBootApplication
 @EnableCaching
+@EnableConfigurationProperties(DsMappingConfig.class)
 public class SocialNetworkApplication {
     static Logger logger = LoggerFactory.getLogger(SocialNetworkApplication.class);
 

@@ -1,0 +1,12 @@
+[mysqld]
+server-id = 3
+log_bin                         = /var/log/mysql/mysql-bin.log
+innodb_flush_log_at_trx_commit  = 1
+sync_binlog                     = 1
+binlog_format                   = ROW
+
+gtid_mode=ON
+enforce_gtid_consistency=ON
+
+#rpl_semi_sync_master_enabled=1
+#rpl_semi_sync_master_timeout=1000 # 1 second

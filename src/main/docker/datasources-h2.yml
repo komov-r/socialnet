@@ -1,0 +1,16 @@
+
+db-mapping:
+  datasources:
+    - name: master
+      url: jdbc:h2:file:/tmp/sample2;MODE=MYSQL
+      username:
+      password:
+
+    - name: slave
+      url: jdbc:h2:file:/tmp/sample3;MODE=MYSQL
+      username:
+      password:
+
+  master: master
+  profiles: master
+  friends: master

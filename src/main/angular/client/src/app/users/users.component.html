@@ -2,6 +2,20 @@
 
 <h2>Profiles</h2>
 
+<div style="text-align: center">
+  <mat-form-field>
+    <mat-label>First Name</mat-label>
+    <input matInput type="text" [(ngModel)]="filter.firstName" (blur)="reload()">
+  </mat-form-field>
+
+  <mat-form-field style="margin-left: 10px">
+    <mat-label>Surname</mat-label>
+    <input matInput type="text" [(ngModel)]="filter.surname" (blur)="reload()">
+  </mat-form-field>
+</div>
+
+<br/>
+
 <table>
   <thead>
   <th>Name</th>

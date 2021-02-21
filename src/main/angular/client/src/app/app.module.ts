@@ -7,7 +7,7 @@ import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {ProfileComponent} from './profile/profile.component';
 import {UsersComponent} from './users/users.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./helpers/auth-interceptor.service";
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
@@ -30,20 +30,21 @@ import {ErrorInterceptor} from "./helpers/error.interceptor";
     UsersComponent,
     MenuComponent
   ],
-  imports: [
-    // CommonModule,
-    BrowserModule,
-    appRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    NoopAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatRadioModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatToolbarModule
-  ],
+    imports: [
+        // CommonModule,
+        BrowserModule,
+        appRoutingModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        NoopAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatRadioModule,
+        MatButtonModule,
+        MatSelectModule,
+        MatToolbarModule,
+        FormsModule
+    ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
