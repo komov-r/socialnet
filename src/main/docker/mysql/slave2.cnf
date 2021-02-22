@@ -1,6 +1,7 @@
 [mysqld]
 server-id = 7
 log_bin                         = /var/log/mysql/mysql-bin.log
+binlog_format                   = ROW
 
 #rpl_semi_sync_slave_enabled=1
 gtid_mode=ON

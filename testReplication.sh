@@ -1,6 +1,5 @@
 echo -e  \n "switch to no-replica config \n"
 cp ./src/main/docker/datasource-no-replica.yml ./src/main/docker/datasources.yml
-
 curl localhost:8080/actuator/refresh -d {} -H "Content-Type: application/json"
 
 echo -e "\n start 1 minute read load test \n"
