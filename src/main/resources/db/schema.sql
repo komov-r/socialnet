@@ -17,5 +17,18 @@ CREATE TABLE if not exists Friend
     userId   INT,
     friendId INT,
     unique key fr (userId, friendId)
-)
+);
 
+
+CREATE TABLE if not exists HistoryItem
+(
+    id                INT auto_increment primary key,
+    ownerId           INT,
+    eventType         varchar(50),
+    userId            INT,
+    eventDate         date,
+    userDescription   varchar(255),
+    objectDescription varchar(255),
+    objectId          INT,
+    objectType        varchar(50)
+);

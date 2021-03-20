@@ -27,3 +27,22 @@
   </tr>
 </table>
 
+<div *ngIf="(friends | async)?.friends.length == 0">
+  No friends yet.
+</div>
+
+<h2>Your friends updates</h2>
+<table style="width: 100%">
+  <tr *ngFor="let item of (historyItems | async)">
+    <td>
+      {{item.event.userDescription}}  <i>{{translateEventType(item.event.eventType)}}</i> {{item.event.objectDescription}}
+    </td>
+    <td>
+      {{item.event.eventDate}}
+    </td>
+  </tr>
+</table>
+
+<div *ngIf="(historyItems | async).length == 0">
+  No history yet.
+</div>

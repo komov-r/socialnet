@@ -42,6 +42,23 @@ public class FriendRepository {
         }
     }
 
+    public List<FriendInfo> getFriendsByUserId(Long userId, Long fromId, int limit) {
+        try (Stream<FriendInfo> friendInfoStream = jdbcTemplate.queryForStream(
+                "SELECT f.userId, f.friendId, p.firstName, p.surname FROM Friend f inner join UserProfile p on f.friendId = p.id WHERE f.userId = ? and f.friendId >= ? order by f.friendId limit ?",
+                this::friendInfoMapper
+                , userId, fromId, limit)) {
+            return friendInfoStream
+                    .collect(Collectors.toList());
+        }
+    }
+
+    public Long getMinFriendId(Long userId) {
+        return jdbcTemplate.queryForObject(
+                "SELECT min(f.friendId) FROM Friend f  WHERE f.userId = ?",
+                Long.class,
+                userId);
+    }
+
     public Friend save(Friend friend) {
 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();

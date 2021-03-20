@@ -1,12 +1,9 @@
 package com.example.socialnetwork.model;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * @author RKomov
@@ -30,6 +27,10 @@ public class UserProfile extends BaseEntity {
     private Gender gender;
 
     private String interests;
+
+    public String getFullName() {
+        return firstName + " " + surname;
+    }
 
     public UserProfile() {
     }
