@@ -1,0 +1,120 @@
+version: '3'
+services:
+  service:
+    image: socialnet
+    container_name: socialnet
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql-storage
+
+    links:
+      - mysql-storage
+#      - mysql-storage-1
+#      - mysql-storage-2
+      - rabbitmq
+    environment:
+      WAIT_HOSTS: mysql-storage:3306
+      SPRING_PROFILES_ACTIVE: prod
+      RABBIT_HOST: rabbitmq
+    #      PROFILES_TO_GENERATE: 500000
+    volumes:
+      - ./datasource-no-replica.yml:/datasources.yml
+
+  mysql-storage:
+    image: mysql:5.7.32
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: mysql-master
+    volumes:
+      - ~/mysqldata:/var/lib/mysql
+      - ./mysql/master.cnf:/etc/mysql/conf.d/master.cnf
+    environment:
+      MYSQL_DATABASE: socialnet
+      MYSQL_ROOT_PASSWORD: password
+
+#  mysql-storage-1:
+#    image: mysql:5.7.32
+#    command: --default-authentication-plugin=mysql_native_password
+#    container_name: mysql-slave-1
+#    links:
+#      - mysql-storage
+#    volumes:
+#      - ~/mysqldata1:/var/lib/mysql
+#      - ./mysql/slave1.cnf:/etc/mysql/conf.d/slave1.cnf
+#    environment:
+#      MYSQL_DATABASE: socialnet
+#      MYSQL_ROOT_PASSWORD: password
+#
+#  mysql-storage-2:
+#    image: mysql:5.7.32
+#    command: --default-authentication-plugin=mysql_native_password
+#    container_name: mysql-slave-2
+#    links:
+#      - mysql-storage
+#      - mysql-storage-1
+#    volumes:
+#      - ~/mysqldata2:/var/lib/mysql
+#      - ./mysql/slave2.cnf:/etc/mysql/conf.d/slave2.cnf
+#    environment:
+#      MYSQL_DATABASE: socialnet
+#      MYSQL_ROOT_PASSWORD: password
+
+
+#  mysql-exporter:
+#    image: prom/mysqld-exporter
+#    ports:
+#      - 9104:9104
+#
+#    depends_on:
+#      - mysql-storage
+#
+#    environment:
+#      DATA_SOURCE_NAME: "root:password@(mysql-storage:3306)/"
+#
+#  prometheus:
+#    image: prom/prometheus:v2.18.1
+#    container_name: prometheus
+#    volumes:
+#      - ./prometheus/:/etc/prometheus/
+#    command:
+#      - '--config.file=/etc/prometheus/prometheus.yml'
+#    ports:
+#      - 9090:9090
+#    network_mode: 'host' # to test locally running service
+#    depends_on:
+#      - cadvisor
+#
+#  cadvisor:
+#    image: gcr.io/cadvisor/cadvisor:latest
+#    container_name: cadvisor
+#    ports:
+#      - 8089:8080
+#    volumes:
+#      - /:/rootfs:ro
+#      - /var/run:/var/run:rw
+#      - /sys:/sys:ro
+#      - /var/lib/docker/:/var/lib/docker:ro
+#    depends_on:
+##      - mysql-storage-1
+#      - mysql-storage
+#      - service
+#
+#  grafana:
+#    image: grafana/grafana:7.0.1
+#    container_name: grafana
+#    volumes:
+#      - ./grafana/provisioning/:/etc/grafana/provisioning/
+#    environment:
+#      - GF_SECURITY_ADMIN_PASSWORD=admin
+#      - GF_USERS_ALLOW_SIGN_UP=false
+#      - GF_INSTALL_PLUGINS=grafana-piechart-panel
+#    ports:
+#      - 3000:3000
+#    network_mode: 'host' # to test locally running service
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672

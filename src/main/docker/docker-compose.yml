@@ -12,9 +12,11 @@ services:
       - mysql-storage
       - mysql-storage-1
       - mysql-storage-2
+      - rabbitmq
     environment:
       WAIT_HOSTS: mysql-storage:3306, mysql-storage-1:3306, mysql-storage-2:3306
-      SPRING_PROFILE_ACTIVE: prod
+      SPRING_PROFILES_ACTIVE: prod
+      RABBIT_HOST: rabbitmq
   #      PROFILES_TO_GENERATE: 500000
     volumes:
       - ./datasources.yml:/datasources.yml
@@ -109,3 +111,10 @@ services:
     ports:
       - 3000:3000
     network_mode: 'host' # to test locally running service
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672
