@@ -9,7 +9,6 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.env.Environment;
 
 import javax.sql.DataSource;
 
@@ -22,14 +21,11 @@ public class DsConfig {
     Logger log = LoggerFactory.getLogger(DsConfig.class);
 
 
-    org.springframework.cloud.context.scope.refresh.RefreshScope refreshScope;
-Environment environment;
+    private org.springframework.cloud.context.scope.refresh.RefreshScope refreshScope;
 
 
-    public DsConfig(org.springframework.cloud.context.scope.refresh.RefreshScope refreshScope,
-                    Environment environment) {
+    public DsConfig(org.springframework.cloud.context.scope.refresh.RefreshScope refreshScope) {
         this.refreshScope = refreshScope;
-        this.environment = environment;
     }
 
     @Bean
