@@ -1,12 +1,12 @@
 package com.example.socialnetwork.config;
 
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.concurrent.ConcurrentMapCache;
-import org.springframework.cache.support.SimpleCacheManager;
+import com.example.socialnetwork.model.HistoryItem;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.Arrays;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
  * @author RKomov
@@ -14,13 +14,16 @@ import java.util.Arrays;
 @Configuration
 public class HistoryCacheConfig {
 
-    public static final String HISTORY_CACHE = "history";
-
     @Bean
-    public CacheManager cacheManager() {
-        SimpleCacheManager cacheManager = new SimpleCacheManager();
-        cacheManager.setCaches(Arrays.asList(
-                new ConcurrentMapCache(HISTORY_CACHE)));
-        return cacheManager;
+    public RedisTemplate<String, HistoryItem>  redisTemplate(RedisConnectionFactory connectionFactory) {
+        RedisTemplate<String, HistoryItem> template = new RedisTemplate<>();
+        template.setConnectionFactory(connectionFactory);
+
+        // explicitly enable transaction support
+        template.setEnableTransactionSupport(true);
+
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setValueSerializer(new JdkSerializationRedisSerializer());
+        return template;
     }
 }

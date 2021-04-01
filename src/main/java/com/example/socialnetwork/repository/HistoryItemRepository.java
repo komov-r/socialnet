@@ -1,14 +1,11 @@
 package com.example.socialnetwork.repository;
 
-import com.example.socialnetwork.config.HistoryCacheConfig;
 import com.example.socialnetwork.model.HistoryEvent;
 import com.example.socialnetwork.model.HistoryEventType;
 import com.example.socialnetwork.model.HistoryItem;
 import com.example.socialnetwork.model.ObjectType;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +18,6 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -31,17 +27,33 @@ import java.util.stream.Stream;
 @Repository
 public class HistoryItemRepository {
 
-    private final JdbcTemplate jdbcTemplate;
-    private Cache cache;
+    private static int LIMIT = 1000;
 
-    public HistoryItemRepository(JdbcTemplate jdbcTemplate, CacheManager cacheManager) {
+    private final JdbcTemplate jdbcTemplate;
+    private final RedisTemplate<String, HistoryItem> redisTemplate;
+
+
+    public HistoryItemRepository(JdbcTemplate jdbcTemplate,  RedisTemplate<String, HistoryItem> redisTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        this.cache = cacheManager.getCache(HistoryCacheConfig.HISTORY_CACHE);
+        this.redisTemplate = redisTemplate;
     }
 
-    @Cacheable(value = HistoryCacheConfig.HISTORY_CACHE)
     public Collection<HistoryItem> getHistoryItems(Long ownerId) {
 
+        if (redisTemplate.hasKey(getCacheKey(ownerId))) {
+            return redisTemplate.boundListOps(getCacheKey(ownerId)).range(0, LIMIT);
+        } else {
+            List<HistoryItem> historyItems = loadItems(ownerId);
+            redisTemplate.boundListOps(getCacheKey(ownerId)).leftPushAll(historyItems.toArray(new HistoryItem[0]));
+            return historyItems;
+        }
+    }
+
+    private String getCacheKey(Long ownerId) {
+        return "history:" + ownerId;
+    }
+
+    private List<HistoryItem> loadItems(Long ownerId) {
         try (Stream<HistoryItem> friendInfoStream = jdbcTemplate.queryForStream(
                 "SELECT id, " +
                         "ownerId, " +
@@ -53,10 +65,12 @@ public class HistoryItemRepository {
                         "eventType, " +
                         "eventDate" +
                         " FROM HistoryItem  WHERE ownerId=?" +
-                        " order by id desc",
+                        " order by id desc" +
+                        " limit ?",
                 this::itemMapper,
-                ownerId)) {
-            return friendInfoStream.collect(Collectors.toCollection(ConcurrentLinkedDeque::new));
+                ownerId,
+                LIMIT)) {
+            return friendInfoStream.collect(Collectors.toList());
         }
     }
 
@@ -80,8 +94,6 @@ public class HistoryItemRepository {
     public void save(List<HistoryItem> items) {
         try (var con = jdbcTemplate.getDataSource().getConnection()) {
 
-            con.setAutoCommit(false);
-
             PreparedStatement preparedStatement = insertPreparedStatement(con);
 
             for (HistoryItem user : items) {
@@ -90,8 +102,6 @@ public class HistoryItemRepository {
             }
 
             preparedStatement.executeBatch();
-
-            con.commit();
 
             updateCache(items);
 
@@ -102,13 +112,12 @@ public class HistoryItemRepository {
         }
     }
 
-    private void updateCache(List<HistoryItem> collect) {
-        for (HistoryItem historyItem : collect) {
+    private void updateCache(List<HistoryItem> items) {
+        for (HistoryItem historyItem : items) {
 
-            ConcurrentLinkedDeque value = cache.get(historyItem.getOwnerId(), ConcurrentLinkedDeque.class);
-
-            if (value != null) {
-                value.addFirst(historyItem);
+            if (redisTemplate.hasKey(getCacheKey(historyItem.getOwnerId()))) {
+                redisTemplate.boundListOps(getCacheKey(historyItem.getOwnerId())).leftPush(historyItem);
+                redisTemplate.boundListOps(getCacheKey(historyItem.getOwnerId())).trim(0, LIMIT);
             }
         }
     }

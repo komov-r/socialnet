@@ -13,10 +13,12 @@ services:
       - mysql-storage-1
       - mysql-storage-2
       - rabbitmq
+      - redis
     environment:
       WAIT_HOSTS: mysql-storage:3306, mysql-storage-1:3306, mysql-storage-2:3306
       SPRING_PROFILES_ACTIVE: prod
       RABBIT_HOST: rabbitmq
+      REDIS_HOST: redis
   #      PROFILES_TO_GENERATE: 500000
     volumes:
       - ./datasources.yml:/datasources.yml
@@ -118,3 +120,9 @@ services:
     ports:
       - 15672:15672
       - 5672:5672
+
+  redis:
+    image: redis:6.2.1-alpine
+    container_name: redis
+    ports:
+      - 6379:6379
