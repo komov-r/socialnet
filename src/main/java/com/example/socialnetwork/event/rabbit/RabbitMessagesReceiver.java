@@ -18,7 +18,7 @@ public class RabbitMessagesReceiver {
         this.historyEventListener = historyEventListener;
     }
 
-    @RabbitListener(queues = MessagingConfig.QUEUE_NAME)
+    @RabbitListener(queues = MessagingConfig.HISTORY_QUEUE_NAMES)
     public void receiveHistoryEvent(HistoryEventRequest historyEventRequest) {
         historyEventListener.handleEvent(historyEventRequest);
     }

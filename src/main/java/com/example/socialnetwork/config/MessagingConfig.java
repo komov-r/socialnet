@@ -14,13 +14,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MessagingConfig {
 
-    public static final String EXCHANGE_NAME = "spring-boot-exchange";
 
-    public static final String QUEUE_NAME = "history";
+    public static final String HISTORY_QUEUE_NAMES = "history";
+    public static final String HISTORY_EXCHANGE_NAME = "history";
 
     @Bean
     Queue queue() {
-        return new Queue(QUEUE_NAME, true);
+        return new Queue(HISTORY_QUEUE_NAMES, true);
     }
 
     @Bean

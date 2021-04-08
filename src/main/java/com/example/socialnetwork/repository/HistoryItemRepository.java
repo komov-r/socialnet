@@ -44,7 +44,9 @@ public class HistoryItemRepository {
             return redisTemplate.boundListOps(getCacheKey(ownerId)).range(0, LIMIT);
         } else {
             List<HistoryItem> historyItems = loadItems(ownerId);
-            redisTemplate.boundListOps(getCacheKey(ownerId)).leftPushAll(historyItems.toArray(new HistoryItem[0]));
+            if (!historyItems.isEmpty()) {
+                redisTemplate.boundListOps(getCacheKey(ownerId)).leftPushAll(historyItems.toArray(new HistoryItem[0]));
+            }
             return historyItems;
         }
     }

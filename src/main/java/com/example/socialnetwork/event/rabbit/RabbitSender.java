@@ -28,7 +28,7 @@ public class RabbitSender {
     @EventListener
     public void handleEvent(HistoryEventRequest historyEventRequest) {
         try {
-            amqpTemplate.convertAndSend(MessagingConfig.QUEUE_NAME, historyEventRequest);
+            amqpTemplate.convertAndSend(MessagingConfig.HISTORY_EXCHANGE_NAME, historyEventRequest);
         } catch (Exception e) {
             logger.error("Fail to send message to rabbit", e);
         }
