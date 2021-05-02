@@ -43,6 +43,6 @@
   </tr>
 </table>
 
-<div *ngIf="(historyItems | async).length == 0">
+<div *ngIf="historyItems.getValue()==null || (historyItems | async)?.length == 0">
   No history yet.
 </div>

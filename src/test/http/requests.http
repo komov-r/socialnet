@@ -14,7 +14,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/api/login
+POST http://localhost:8081/api/login
 Content-Type: application/json
 
 {
@@ -24,15 +24,15 @@ Content-Type: application/json
 
 ###
 
-GET http://127.0.0.1:8080/api/profiles?firstName=test777771239
+GET http://127.0.0.1:8080/api/profiles
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjE0NDY0Njg1fQ.rSaaZp-j3311Onu1Ua6XKvFzHkTRh6OQ4dFZL7Yiw4oO0pfgbMlZd6Obl_MtWF62PFYNwgjhCCRX7TlzjXGbuw
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDA1OTc3ODEiLCJleHAiOjIyMTc0OTExMDN9.uRsNK9rx_EXdFoV-118pXomhXMGGMiVzrGy3BteiDMAR68WFbXL94Y-gJPsQuty4XOSlZC7psOUIdEOgAiMoTg
 
 
 ###
 
 GET http://localhost:8080/api/profile
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDA1OTY4OTQiLCJleHAiOjE2MTM4NTMwMzV9.DHERq1ks7mxkjzxajsVOAaaXBs2tjmKTxJrVUbvfua1ZkzVcPmqmzqfbxt6MxeS3Oh6-mWYl5AXbbHwW5c6cNw
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDA1OTc3ODEiLCJleHAiOjIyMTc0OTExMDN9.uRsNK9rx_EXdFoV-118pXomhXMGGMiVzrGy3BteiDMAR68WFbXL94Y-gJPsQuty4XOSlZC7psOUIdEOgAiMoTg
 
 ###
 

@@ -1,19 +1,21 @@
 version: '3'
 services:
+
+
   service:
     image: socialnet
     container_name: socialnet
     ports:
-      - "8080:8080"
-    depends_on:
-      - mysql-storage
+      - "8081:8080"
+#    depends_on:
+#      - mysql-storage
 
-    links:
-      - mysql-storage
-      - mysql-storage-1
-      - mysql-storage-2
-      - rabbitmq
-      - redis
+#    links:
+#      - mysql-storage
+#      - mysql-storage-1
+#      - mysql-storage-2
+#      - rabbitmq
+#      - redis
     environment:
       WAIT_HOSTS: mysql-storage:3306, mysql-storage-1:3306, mysql-storage-2:3306
       SPRING_PROFILES_ACTIVE: prod
@@ -21,7 +23,38 @@ services:
       REDIS_HOST: redis
   #      PROFILES_TO_GENERATE: 500000
     volumes:
-      - ./datasources.yml:/datasources.yml
+      - ./datasources-proxy.yml:/datasources.yml
+
+  service-2:
+    image: socialnet
+    container_name: socialnet-2
+    ports:
+      - "8082:8080"
+#    depends_on:
+#      - mysql-storage
+
+#    links:
+#      - mysql-storage
+#      - mysql-storage-1
+#      - mysql-storage-2
+#      - rabbitmq
+#      - redis
+    environment:
+      WAIT_HOSTS: mysql-storage:3306, mysql-storage-1:3306, mysql-storage-2:3306, mysql-storage-haproxy:3306
+      SPRING_PROFILES_ACTIVE: prod
+      RABBIT_HOST: rabbitmq
+      REDIS_HOST: redis
+  #      PROFILES_TO_GENERATE: 500000
+    volumes:
+      - ./datasources-proxy.yml:/datasources.yml
+
+  nginx:
+    image: nginx:1.19.0
+    container_name: nginx-sc
+    volumes:
+      - "./nginx/default.conf:/etc/nginx/conf.d/default.conf"
+    ports:
+      - "8080:8080"
 
   mysql-storage:
     image: mysql:5.7.32
@@ -61,6 +94,13 @@ services:
       MYSQL_DATABASE: socialnet
       MYSQL_ROOT_PASSWORD: password
 
+  mysql-storage-haproxy:
+    image: haproxy:2.1.7
+    container_name: mysql-storage-haproxy
+    volumes:
+      - "./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg"
+    ports:
+      - "8404:8404"
 
   mysql-exporter:
     image: prom/mysqld-exporter
@@ -82,7 +122,7 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
     ports:
       - 9090:9090
-    network_mode: 'host' # to test locally running service
+#    network_mode: 'host' # to test locally running service
     depends_on:
       - cadvisor
 
@@ -112,7 +152,7 @@ services:
       - GF_INSTALL_PLUGINS=grafana-piechart-panel
     ports:
       - 3000:3000
-    network_mode: 'host' # to test locally running service
+#    network_mode: 'host' # to test locally running service
 
   rabbitmq:
     image: rabbitmq:3-management

@@ -36,6 +36,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = {DuplicateKeyException.class})
     public ResponseEntity<Object> handleDuplicateKey(
             Exception ex, WebRequest request) {
+        logger.debug("",ex);
         return new ResponseEntity<>(null,
                 new HttpHeaders(),
                 HttpStatus.CONFLICT);
@@ -44,6 +45,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = {IllegalArgumentException.class})
     public ResponseEntity<Object> handleBadRequestException(
             Exception ex, WebRequest request) {
+        logger.debug("",ex);
         return new ResponseEntity<>(Map.of("errors", List.of(ex.getMessage())),
                 new HttpHeaders(),
                 HttpStatus.BAD_REQUEST);
@@ -53,7 +55,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = {AccessDeniedException.class, AuthenticationException.class})
     public ResponseEntity<Object> handleAuthException(
             Exception ex, WebRequest request) {
-
+        logger.debug("",ex);
         return new ResponseEntity<>(Map.of("errors", List.of(ex.getMessage())),
                 new HttpHeaders(),
                 HttpStatus.UNAUTHORIZED);
@@ -78,6 +80,12 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(body, headers, status);
 
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        logger.error("",ex);
+        return super.handleExceptionInternal(ex, body, headers, status, request);
     }
 
     private Throwable findRootCause(Throwable throwable) {

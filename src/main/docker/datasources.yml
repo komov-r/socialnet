@@ -18,6 +18,6 @@ db-mapping:
       username: root
       password: password
 
-  master: slave1
+  master: master
   profiles: slave1
   friends: slave2

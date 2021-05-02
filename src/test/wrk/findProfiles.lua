@@ -1,5 +1,5 @@
 wrk.headers["Content-Type"] = "application/json"
-wrk.headers["Authorization"] = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjE0NDY0Njg1fQ.rSaaZp-j3311Onu1Ua6XKvFzHkTRh6OQ4dFZL7Yiw4oO0pfgbMlZd6Obl_MtWF62PFYNwgjhCCRX7TlzjXGbuw"
+wrk.headers["Authorization"] = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMDA1OTc3ODEiLCJleHAiOjIyMTc0OTExMDN9.uRsNK9rx_EXdFoV-118pXomhXMGGMiVzrGy3BteiDMAR68WFbXL94Y-gJPsQuty4XOSlZC7psOUIdEOgAiMoTg"
 wrk.headers["Accept"] = "*/*"
 wrk.path   = "/api/profiles"
 

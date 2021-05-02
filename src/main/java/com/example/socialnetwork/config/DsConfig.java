@@ -72,9 +72,9 @@ public class DsConfig {
 
     private DataSource createDs(String jdbcUrl, String username, String password) {
         final HikariConfig config = new HikariConfig();
-        config.setMinimumIdle(5);
-        config.setMaximumPoolSize(50);
-        config.setConnectionTimeout(10000);
+        config.setMinimumIdle(3);
+        config.setMaximumPoolSize(36);
+        config.setConnectionTimeout(900);
         config.setIdleTimeout(600000);
         config.setMaxLifetime(1800000);
         config.setJdbcUrl(jdbcUrl);

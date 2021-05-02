@@ -1,0 +1,17 @@
+db-mapping:
+  datasources:
+    - name: master
+      url: jdbc:mysql://mysql-storage:3306/socialnet
+      username: root
+      password: password
+      driverClassName: com.mysql.jdbc.Driver
+
+    - name: slaves_proxy
+      url: jdbc:mysql://mysql-storage-haproxy:3306/socialnet
+      username: root
+      password: password
+
+  master: master
+  profiles: slaves_proxy
+  friends: slaves_proxy
+
