@@ -32,7 +32,7 @@ export class WsClient {
             self.connected = true;
             res(self.stompClient);
           },
-          this.errorCallBack);
+          self.errorCallBack);
       });
     }
   }

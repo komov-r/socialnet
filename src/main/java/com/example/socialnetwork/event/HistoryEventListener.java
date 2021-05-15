@@ -7,6 +7,7 @@ import com.example.socialnetwork.repository.FriendRepository;
 import com.example.socialnetwork.repository.HistoryItemRepository;
 import com.example.socialnetwork.repository.UserProfileRepository;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -24,21 +25,21 @@ public class HistoryEventListener {
     private final HistoryItemRepository historyItemRepository;
     private final UserProfileRepository profileRepository;
     private final ApplicationEventPublisher eventPublisher;
+    private final SimpMessagingTemplate stompMsgTemplate;
 
     public HistoryEventListener(FriendRepository friendRepository,
                                 HistoryItemRepository historyItemRepository,
                                 UserProfileRepository profileRepository,
-                                ApplicationEventPublisher eventPublisher) {
+                                ApplicationEventPublisher eventPublisher,
+                                SimpMessagingTemplate stompMsgTemplate) {
         this.friendRepository = friendRepository;
         this.historyItemRepository = historyItemRepository;
         this.profileRepository = profileRepository;
         this.eventPublisher = eventPublisher;
+        this.stompMsgTemplate = stompMsgTemplate;
     }
 
 
-//    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-//    @EventListener
-//    @Async
     public void handleEvent(HistoryEventRequest historyEventRequest) {
 
         List<Long> friendsByUserId = produceRecipientsList(historyEventRequest);
@@ -54,6 +55,14 @@ public class HistoryEventListener {
                 .collect(Collectors.toList());
 
         historyItemRepository.save(historyItems);
+
+        sendToUsers(historyItems);
+    }
+
+    private void sendToUsers(List<HistoryItem> historyItems) {
+        for (HistoryItem historyItem : historyItems) {
+            stompMsgTemplate.convertAndSendToUser(String.valueOf(historyItem.getOwnerId()), "/queue/history", historyItem);
+        }
     }
 
     private List<Long> produceRecipientsList(HistoryEventRequest historyEventRequest) {

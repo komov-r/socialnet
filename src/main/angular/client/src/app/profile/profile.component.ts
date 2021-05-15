@@ -4,6 +4,7 @@ import {filter} from "rxjs/operators";
 import {Friend, FriendList, FriendService} from "./friend.service";
 import {BehaviorSubject} from "rxjs";
 import {HistoryItem, HistoryService} from "../history/history.service";
+import {WsClient} from "../wsClient";
 
 @Component({
   templateUrl: './profile.component.html',
@@ -17,7 +18,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(private profileService: ProfileService,
               private friendService: FriendService,
-              private historyService: HistoryService) {
+              private historyService: HistoryService,
+              private wsClient: WsClient) {
   }
 
   ngOnInit() {
@@ -32,6 +34,10 @@ export class ProfileComponent implements OnInit {
     this.historyService.getHistory()
       .subscribe(this.historyItems)
 
+    this.wsClient.subscriberHistory(h => {
+      console.log(h);
+      this.historyItems.value.unshift(h);
+    })
   }
 
   removeFriend(friend: Friend) {
