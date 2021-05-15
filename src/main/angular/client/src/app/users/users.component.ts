@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ProfileService, ProfilesRequest, UserProfile, UserProfilesList} from "../profile/profile.service";
-import {FriendList, FriendService} from "../profile/friend.service";
-import {BehaviorSubject, Observable} from "rxjs";
+import {FriendService} from "../profile/friend.service";
+import {Observable} from "rxjs";
 import {filter} from "rxjs/operators";
 import {LoginService} from "../login/login.service";
+import {NewChatService} from "../chat/chat.service";
 
 @Component({
   templateUrl: './users.component.html',
@@ -15,8 +16,10 @@ export class UsersComponent implements OnInit {
 
   filter: ProfilesRequest = new ProfilesRequest();
 
-
-  constructor(private profileService: ProfileService, private friendService: FriendService, private loginService: LoginService) {
+  constructor(private profileService: ProfileService,
+              private friendService: FriendService,
+              private loginService: LoginService,
+              private newChatService: NewChatService) {
   }
 
   ngOnInit() {
@@ -27,6 +30,7 @@ export class UsersComponent implements OnInit {
 
     this.profiles = this.profileService.getProfiles();
   }
+
 
   addFriend(friendId: number) {
     this.friendService.addFriend(friendId).subscribe((f) => {
@@ -43,8 +47,14 @@ export class UsersComponent implements OnInit {
   }
 
   public reload(): void {
-    console.log(this.filter.firstName)
+
+    if (this.filter.firstName.length < 3 && this.filter.surname.length < 3) {
+      return
+    }
     this.profiles = this.profileService.findProfiles(this.filter);
   }
 
+  chat(user: UserProfile) {
+    this.newChatService.newChatEvent.emit(user);
+  }
 }

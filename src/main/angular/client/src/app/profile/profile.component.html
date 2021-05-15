@@ -1,5 +1,3 @@
-<app-menu></app-menu>
-
 <h2>Your profile</h2>
 <div *ngIf="(currentProfile | async) as cp" class="profile">
   <div><label>Name</label> <span>{{cp.firstName}} {{cp.surname}}</span></div>

@@ -1,4 +1,3 @@
-<app-menu></app-menu>
 
 <h2>Profiles</h2>
 
@@ -41,6 +40,13 @@
           Add
         </button>
         <span *ngIf="isFriend(profile)">Added</span>
+
+        <button mat-button color="primary"
+                (click)="chat(profile)"
+                *ngIf="!isMe(profile)"
+        >
+          chat
+        </button>
       </div>
     </td>
   </tr>

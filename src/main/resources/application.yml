@@ -35,6 +35,7 @@ jwt:
 logging:
   level:
     com.example: "debug"
+    org.springframework.data.cassandra.core.cql: "debug"
 
 management:
   endpoints:

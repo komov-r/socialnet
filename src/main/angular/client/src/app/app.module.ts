@@ -19,7 +19,9 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MenuComponent} from './menu/menu.component';
 import {ErrorInterceptor} from "./helpers/error.interceptor";
-
+import {ChatComponent} from "./chat/chat.component";
+import {MatRippleModule} from "@angular/material/core";
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -28,23 +30,26 @@ import {ErrorInterceptor} from "./helpers/error.interceptor";
     RegisterComponent,
     ProfileComponent,
     UsersComponent,
-    MenuComponent
+    MenuComponent,
+    ChatComponent
   ],
-    imports: [
-        // CommonModule,
-        BrowserModule,
-        appRoutingModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        NoopAnimationsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatRadioModule,
-        MatButtonModule,
-        MatSelectModule,
-        MatToolbarModule,
-        FormsModule
-    ],
+  imports: [
+    // CommonModule,
+    BrowserModule,
+    appRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    NoopAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRadioModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatToolbarModule,
+    FormsModule,
+    MatRippleModule,
+    MatSnackBarModule
+  ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
