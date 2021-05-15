@@ -115,7 +115,10 @@ services:
 #    network_mode: 'host' # to test locally running service
 
   rabbitmq:
-    image: rabbitmq:3-management
+#    image: rabbitmq:3-management
+    build:
+      context: .
+      dockerfile: rabbit-stomp.df
     container_name: rabbitmq
     ports:
       - 15672:15672
@@ -126,3 +129,8 @@ services:
     container_name: redis
     ports:
       - 6379:6379
+
+  cassandra:
+    image: "cassandra:3.0"
+    ports:
+      - "9042:9042"

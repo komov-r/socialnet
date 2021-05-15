@@ -151,6 +151,22 @@
             <artifactId>lettuce-core</artifactId>
             <version>6.0.3.RELEASE</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-cassandra</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-reactor-netty</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
