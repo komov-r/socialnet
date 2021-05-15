@@ -1,0 +1,39 @@
+<div class="chatPanel">
+
+  <div *ngIf="currentChat == null && !chats.value.length" style="text-align: center">
+    No conversations
+  </div>
+
+  <div *ngIf="currentChat == null" class="chats">
+    <div class="chat-item"
+         mat-ripple
+         (click)="selectChat(chat)"
+         *ngFor="let chat of (chats.value)">
+      {{getChatLabel(chat)}}
+
+      <small class="last-message" *ngIf="chat.lastMessage!=null">
+        {{chat.lastMessage.author.name}}:  {{chat.lastMessage.message}}
+      </small>
+    </div>
+  </div>
+
+  <div *ngIf="currentChat != null">
+
+    <button mat-button (click)="selectChat(null)">back</button>
+    <div class="msgs" id="scrollframe">
+      <div>
+        <div *ngFor="let msg of (currentChatMessages | async)"
+             [class.msg-me]="isMyMessage(msg)"
+             [class.msg]="!isMyMessage(msg)"
+        >
+          <small *ngIf="!isMyMessage(msg)">{{msg.author.name}}</small><br/>
+          {{msg.message}}
+        </div>
+      </div>
+    </div>
+    <mat-form-field class="msg-input">
+      <input type="text"  matInput [(ngModel)]="currentMessage" (keyup.enter)="addMessage()">
+    </mat-form-field>
+  </div>
+
+</div>

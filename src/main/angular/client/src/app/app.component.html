@@ -1,3 +1,5 @@
 <div class="formWrapper">
+  <app-menu *ngIf="renderMenu()"></app-menu>
+  <chat *ngIf="renderMenu()"></chat>
   <router-outlet></router-outlet>
 </div>

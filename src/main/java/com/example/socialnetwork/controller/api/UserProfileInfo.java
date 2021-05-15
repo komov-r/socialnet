@@ -38,6 +38,11 @@ public class UserProfileInfo {
         return userProfile.getFirstName();
     }
 
+    @JsonIgnore
+    public String getFullName() {
+        return userProfile.getFullName();
+    }
+
     public Long getId() {
         return userProfile.getId();
     }

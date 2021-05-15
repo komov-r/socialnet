@@ -1,0 +1,54 @@
+.chatPanel {
+  position: fixed;
+  right: 10px;
+  bottom: 0px;
+  height: 400px;
+  width: 300px;
+  border: 2px solid grey;
+  border-bottom: 0px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+
+}
+
+.chats {
+  overflow-y: scroll;
+  height: 100%;
+}
+
+.chat-item {
+  border-bottom: 1px solid lightgray;
+  padding: 1em;
+}
+
+.msgs {
+
+  overflow: auto;
+  display: flex;
+  flex-direction: column-reverse;
+
+  height: 300px;
+}
+.msg {
+  text-align: left;
+  padding: 0px 5px;
+}
+
+.msg-me{
+  text-align: right;
+  padding: 0px 5px;
+}
+
+.last-message {
+  display: block;
+  color: grey;
+  margin-top: 2px;
+}
+
+.chatPanel .msg-input {
+  position: absolute;
+  bottom: 0px;
+  left: 10px;
+  width: 90%;
+
+}
