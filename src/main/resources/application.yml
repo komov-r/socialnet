@@ -17,6 +17,9 @@ spring:
     password: ${RABBIT_PASS:guest}
   redis:
     host: ${REDIS_HOST:localhost}
+  data:
+    cassandra:
+      contact-points: ${CASSANDRA_ADDRESS:localhost:9042}
 
 
 
@@ -42,6 +45,12 @@ management:
     web:
       exposure:
         include: 'httptrace, *'
+
+stomp:
+  relay:
+    host: ${STOMP_HOST:localhost}
+    port: 61613
+
 
 #bucket4j:
 #  enabled: true

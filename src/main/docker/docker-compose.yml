@@ -20,7 +20,9 @@ services:
       WAIT_HOSTS: mysql-storage:3306, mysql-storage-1:3306, mysql-storage-2:3306
       SPRING_PROFILES_ACTIVE: prod
       RABBIT_HOST: rabbitmq
+      STOMP_HOST: rabbitmq
       REDIS_HOST: redis
+      CASSANDRA_ADDRESS: cassandra-1:9042
   #      PROFILES_TO_GENERATE: 500000
     volumes:
       - ./datasources-proxy.yml:/datasources.yml
@@ -43,7 +45,9 @@ services:
       WAIT_HOSTS: mysql-storage:3306, mysql-storage-1:3306, mysql-storage-2:3306, mysql-storage-haproxy:3306
       SPRING_PROFILES_ACTIVE: prod
       RABBIT_HOST: rabbitmq
+      STOMP_HOST: rabbitmq
       REDIS_HOST: redis
+      CASSANDRA_ADDRESS: cassandra-1:9042
   #      PROFILES_TO_GENERATE: 500000
     volumes:
       - ./datasources-proxy.yml:/datasources.yml
@@ -171,7 +175,7 @@ services:
     ports:
       - 6379:6379
 
-  cassandra:
+  cassandra-1:
     image: "cassandra:3.0"
     container_name: cassandra-1
     ports:

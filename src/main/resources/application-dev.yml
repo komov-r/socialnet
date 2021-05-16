@@ -2,8 +2,4 @@ spring:
   config:
     import: file:/media/roman/projects/otus/hl/social-network/src/main/docker/datasources-h2.yml
 
-stomp:
-  relay:
-    host: localhost
-    port: 61613
 
