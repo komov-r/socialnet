@@ -12,10 +12,8 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -78,7 +76,7 @@ public class ChatService {
     }
 
     private String newChatId() {
-        return LocalDateTime.now().toEpochSecond(ZoneOffset.UTC) + UUID.randomUUID().toString();
+        return com.datastax.oss.driver.api.core.uuid.Uuids.timeBased().toString();
     }
 
 
